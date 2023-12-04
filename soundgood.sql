@@ -17,7 +17,8 @@ CREATE TABLE payment_scheme (
  cost_base INT NOT NULL,
  payment_single INT NOT NULL,
  payment_hard INT NOT NULL,
- payment_group INT NOT NULL
+ payment_group INT NOT NULL,
+ sibling_discount INT NOT NULL
 );
 
 ALTER TABLE payment_scheme ADD CONSTRAINT PK_payment_scheme PRIMARY KEY (date);
@@ -98,8 +99,8 @@ ALTER TABLE session ADD CONSTRAINT PK_session PRIMARY KEY (id);
 
 
 CREATE TABLE siblings (
- sibling_id INT NOT NULL,
- student_id INT NOT NULL
+ student_id INT NOT NULL,
+ sibling_id INT NOT NULL
 );
 
 ALTER TABLE siblings ADD CONSTRAINT PK_siblings PRIMARY KEY (sibling_id,student_id);
@@ -152,6 +153,19 @@ CREATE TABLE group_lesson (
 );
 
 ALTER TABLE group_lesson ADD CONSTRAINT PK_group_lesson PRIMARY KEY (id);
+
+
+CREATE TABLE lesson_history (
+    id SERIAL,
+    type VARCHAR(30) NOT NULL,
+    genre VARCHAR(30),
+    instrument_type VARCHAR(30),
+    price int NOT NULL,
+    student_name VARCHAR(50) NOT NULL,
+    student_email VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE lesson_history ADD CONSTRAINT PK_lesson_history PRIMARY KEY (id);
 
 
 ALTER TABLE student ADD CONSTRAINT FK_student_0 FOREIGN KEY (id) REFERENCES person (id);
